@@ -1,5 +1,7 @@
 # Hades Compiler
 
+![hades](assets/hades.png)
+
 # Language
 
 
