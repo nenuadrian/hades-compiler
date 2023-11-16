@@ -5,6 +5,8 @@
 #include <sstream>
 #include <string>
 #include <cctype>
+#include <vector>
+#include <unordered_map>
 
 enum TokenType
 {
@@ -33,89 +35,81 @@ private:
 
 class Tokenizer
 {
-
 public:
     std::vector<Token> tokens;
 
     Tokenizer(std::stringstream &code)
     {
-        std::stringstream token;
+        std::string token;
         std::string line;
         while (std::getline(code, line))
         {
-            if (line.front() == '#')
-            { // Skip comments
+            if (line.empty() || line.front() == '#')
                 continue;
-            }
-            else
+
+            for (const char character : line)
             {
-                for (const char character : line)
+                switch (character)
                 {
+                case ';':
+                case '=':
+                    addToken(token);
+                    addToken(std::string(1, character));
+                    token.clear();
+                    break;
+                default:
                     if (std::isspace(character))
                     {
-                        addToken(token.str());
-                        token.str(std::string());
+                        addToken(token);
+                        token.clear();
                     }
                     else if (std::isalnum(character))
                     {
-                        token << character;
+                        token += character;
                     }
-                    else if (character == ';')
-                    {
-                        addToken(token.str());
-                        addToken(";");
-                        token.str(std::string());
-                    }
-                    else if (character == '=')
-                    {
-                        token << character;
-                        addToken(token.str());
-                        token.str(std::string());
-                    }
+                    break;
                 }
             }
         }
     }
 
 private:
+    static const std::unordered_map<std::string, TokenType> tokenMap;
+
     void addToken(const std::string &s)
     {
-        if (s == "hero")
+        static const std::unordered_map<std::string, TokenType> tokenMap = createTokenMap();
+
+        if (s.empty())
+            return;
+        auto it = tokenMap.find(s);
+        if (it != tokenMap.end())
         {
-            tokens.push_back(Token(TokenType::HERO, s));
+            tokens.emplace_back(it->second, s);
         }
         else if (is_number(s))
         {
-            tokens.push_back(Token(TokenType::NUMBER, s));
+            tokens.emplace_back(TokenType::NUMBER, s);
         }
-        else if (s == "bestow")
+        else
         {
-            tokens.push_back(Token(TokenType::BESTOW, s));
+            tokens.emplace_back(TokenType::IDENTIFIER, s);
         }
-        else if (s == "styx")
-        {
-            tokens.push_back(Token(TokenType::STYX, s));
-        }
-        else if (s == ";")
-        {
-            tokens.push_back(Token(TokenType::SEMICOLON, s));
-        }
-        else if (s == "=")
-        {
-            tokens.push_back(Token(TokenType::EQUALS, s));
-        }
-        else if (!s.empty())
-        {
-            // Assume any other string is an identifier
-            tokens.push_back(Token(TokenType::IDENTIFIER, s));
-        }
+    }
+
+    static std::unordered_map<std::string, TokenType> createTokenMap()
+    {
+        std::unordered_map<std::string, TokenType> map;
+        map["hero"] = TokenType::HERO;
+        map["bestow"] = TokenType::BESTOW;
+        map["styx"] = TokenType::STYX;
+        map[";"] = TokenType::SEMICOLON;
+        map["="] = TokenType::EQUALS;
+        return map;
     }
 
     bool is_number(const std::string &s)
     {
-        std::string::const_iterator it = s.begin();
-        while (it != s.end() && std::isdigit(*it))
-            ++it;
-        return !s.empty() && it == s.end();
+        return std::all_of(s.begin(), s.end(), ::isdigit);
     }
 };
