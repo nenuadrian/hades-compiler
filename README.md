@@ -19,6 +19,13 @@ The compiler will follow a traditional structure:
 
 ## Language
 
+Hello world example:
+```
+hero a = 2; # variable
+hero b = 3; # variable
+styx a; # prints a
+bestow a; # returns a
+```
 
 ## MacOS
 
