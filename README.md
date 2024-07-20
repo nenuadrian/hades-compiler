@@ -6,8 +6,7 @@
 This repository is part of an educational series exploring the complexities of building a compiler for a custom programming language targeting the x86 CPU using NASM (Netwide Assembler). The project is named after Hades, the Greek god of the underworld, blending mythology with technology.
 
  * [Part 1 - Building a Mythological Programming Language Compiler For an x86 CPU (NASM) — Hades](https://adriannenu.medium.com/building-a-mythological-programming-language-compiler-for-an-x86-cpu-nasm-part-i-hades-8543c2b6a920)
- * [Part 2 - Building a Mythological Programming Language Compiler For an x86 CPU (NASM) — Tokenizer For a Simple Program
-]([https://adriannenu.medium.com/building-a-mythological-programming-language-compiler-for-an-x86-cpu-nasm-part-i-hades-8543c2b6a920](https://adriannenu.medium.com/building-a-mythological-programming-language-compiler-for-an-x86-cpu-nasm-part-ii-tokenizer-7c338704aebe))
+ * [Part 2 - Building a Mythological Programming Language Compiler For an x86 CPU (NASM) — Tokenizer For a Simple Program]([https://adriannenu.medium.com/building-a-mythological-programming-language-compiler-for-an-x86-cpu-nasm-part-i-hades-8543c2b6a920](https://adriannenu.medium.com/building-a-mythological-programming-language-compiler-for-an-x86-cpu-nasm-part-ii-tokenizer-7c338704aebe))
  * [Part 3 - Building a Mythological Programming Language Compiler For an x86 CPU (NASM) — Parser](https://medium.com/@adriannenu/building-a-mythological-programming-language-compiler-for-an-x86-cpu-nasm-part-iii-parser-24ae900aed4d)
 
 ## Purpose
