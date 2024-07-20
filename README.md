@@ -5,7 +5,7 @@
 ## Overview
 This repository is part of an educational series exploring the complexities of building a compiler for a custom programming language targeting the x86 CPU using NASM (Netwide Assembler). The project is named after Hades, the Greek god of the underworld, blending mythology with technology.
 
-https://medium.com/@adriannenu/building-a-mythological-programming-language-compiler-for-an-x86-cpu-nasm-part-i-hades-8543c2b6a920
+ * [Part 1 - Building a Mythological Programming Language Compiler For an x86 CPU (NASM) — Part I — Hades](https://adriannenu.medium.com/building-a-mythological-programming-language-compiler-for-an-x86-cpu-nasm-part-i-hades-8543c2b6a920)
 
 ## Purpose
 The primary goal is to create a basic compiler capable of solving simple LeetCode problems and scripting-level programs. This is an educational passion project to understand compiler construction, not intended for production use.
