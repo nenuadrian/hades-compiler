@@ -1,0 +1,74 @@
+plugins {
+    id 'java'
+    id 'antlr'
+    id 'application'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // ANTLR dependency
+    antlr 'org.antlr:antlr4:4.9.2'
+
+    // ASM dependencies
+    implementation 'org.ow2.asm:asm:9.2'
+    implementation 'org.ow2.asm:asm-commons:9.2'
+
+    // JUnit for testing
+    testImplementation 'junit:junit:4.13.2'
+}
+
+sourceSets {
+    main {
+        java {
+            // Include generated ANTLR sources in the compilation process
+            srcDirs += "${buildDir}/generated-src/antlr/main"
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    // Ensure generated ANTLR sources are compiled
+    dependsOn tasks.generateGrammarSource
+}
+
+generateGrammarSource {
+    arguments += ['-visitor'] // Generates a parse tree visitor class
+    outputDirectory = file("${buildDir}/generated-src/antlr/main/com/example")
+}
+
+// Task to add a package declaration to the generated ANTLR files
+tasks.named("generateGrammarSource") {
+    doLast {
+        def outputDir = file("${buildDir}/generated-src/antlr/main/com/example")
+        outputDir.eachFileRecurse { file ->
+            if (file.name.endsWith('.java')) {
+                def lines = file.readLines()
+                lines.add(0, "package com.example;")
+                file.text = lines.join('\n')
+            }
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'com.example.HadesCompiler' // Entry point for your compiler
+        )
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+application {
+    mainClass = 'com.example.HadesCompiler'
+}
