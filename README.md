@@ -1,5 +1,7 @@
 # Hades Compiler
 
+[![Java CI with Gradle](https://github.com/nenuadrian/hades-compiler/actions/workflows/gradle.yml/badge.svg)](https://github.com/nenuadrian/hades-compiler/actions/workflows/gradle.yml)
+
 ![hades](assets/hades.png)
 
 ## Overview
