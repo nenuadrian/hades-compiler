@@ -1,15 +1,13 @@
 package com.example;
 
-import java.io.FileOutputStream;
-
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.*;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 public class HadesCompiler {
-    public static void main(String[] args) throws Exception {
-        // Input Hades code
-        String input = "hero a = 2;\nhero b = 3;\nstyx a;";
 
+    public byte[] generateBytecode(String input) throws Exception {
         // Create a CharStream that reads from the input string
         CharStream charStream = CharStreams.fromString(input);
 
@@ -32,14 +30,6 @@ public class HadesCompiler {
         HadesBytecodeGenerator bytecodeGenerator = new HadesBytecodeGenerator();
         bytecodeGenerator.visit(tree);
 
-        // Generate bytecode
-        byte[] bytecode = bytecodeGenerator.generateBytecode();
-
-        // Save the bytecode to a .class file
-        try (FileOutputStream fos = new FileOutputStream("HadesProgram.class")) {
-            fos.write(bytecode);
-        }
-
-        System.out.println("Bytecode has been successfully generated and saved as HadesProgram.class.");
+        return bytecodeGenerator.generateBytecode();
     }
 }

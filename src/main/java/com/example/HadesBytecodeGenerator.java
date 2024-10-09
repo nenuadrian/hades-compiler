@@ -1,16 +1,27 @@
 package com.example;
 
-import static org.objectweb.asm.Opcodes.*;
-
-import org.objectweb.asm.*;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
+import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
+import static org.objectweb.asm.Opcodes.ACC_STATIC;
+import static org.objectweb.asm.Opcodes.ALOAD;
+import static org.objectweb.asm.Opcodes.GETSTATIC;
+import static org.objectweb.asm.Opcodes.ILOAD;
+import static org.objectweb.asm.Opcodes.INVOKESPECIAL;
+import static org.objectweb.asm.Opcodes.INVOKEVIRTUAL;
+import static org.objectweb.asm.Opcodes.IRETURN;
+import static org.objectweb.asm.Opcodes.ISTORE;
+import static org.objectweb.asm.Opcodes.RETURN;
+import static org.objectweb.asm.Opcodes.SIPUSH;
+import static org.objectweb.asm.Opcodes.V1_8;
 
 public class HadesBytecodeGenerator extends HadesBaseVisitor<Void> {
-    private ClassWriter classWriter;
-    private MethodVisitor methodVisitor;
+    private final ClassWriter classWriter;
+    private final MethodVisitor methodVisitor;
     private int varCounter = 0;
 
     // Map to keep track of variable names and their corresponding indices
-    private java.util.Map<String, Integer> varMap = new java.util.HashMap<>();
+    private final java.util.Map<String, Integer> varMap = new java.util.HashMap<>();
 
     public HadesBytecodeGenerator() {
         // Set up ASM ClassWriter
