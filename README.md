@@ -54,7 +54,7 @@ Gradlew based. Use gradlew.bat for Windows.
 ### Run
 
 ```
-./gradlew run
+./gradlew run --args="--help"
 ```
 
 ### Test
