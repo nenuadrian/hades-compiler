@@ -6,21 +6,29 @@
 
 ## Overview
 
-Compiler to JVM byte-code using ANTLR for parsing as an opportunity to explore the inner-depth of combile prototyping.
+Compiler for a custom language, Hades, to JVM byte-code using ANTLR for parsing as an opportunity to explore the inner-depth of compiler prototyping methodology.
+
+The new language is not expected to beat any other in any meaningul way in terms of syntax or performance, but I might focus on bringing different capabilities from different languages experimentally.
+
+
+I use ANTLR as it is quite commonly known and leveraged by production languages and we can find definition files for them such as:
+  * Dart: https://github.com/antlr/grammars-v4/blob/master/dart2/
+  * Swift: https://github.com/antlr/grammars-v4/blob/master/swift/swift3/Swift3.g4
+  * Countlness others: https://github.com/antlr/grammars-v4/tree/master
 
 ## Purpose
 
-The primary goal is to create a basic compiler capable of solving simple LeetCode problems and scripting-level programs. This is an educational passion project to understand compiler construction, not intended for production use.
+The primary goal is to create a basic compiler capable of solving simple LeetCode problems and scripting-level programs. This is an educational passion project to understand compiler construction, not intended for production use or to solve a direct problem with other languages.
 
-## Compiler Structure
+## Compiler Design
 
-The compiler will follow a traditional structure:
+The compiler will follow a a fairly traditional structure:
 
 1. **Tokenization**: Breaking down the source code into tokens.
 2. **Abstract Syntax Tree (AST)**: Converting tokens into an AST.
-3. **Code Generation**: Translating the AST into assembly code.
+3. **Code Generation**: Translating the AST into byte-code/assembly/executable code.
 
-## Hades Syntax
+## Syntax
 
 Hello world example:
 
@@ -33,28 +41,28 @@ bestow a; # returns a
 
 Defined in src/main/antlr/Hades.g4.
 
-Similarly to how other production languages are defined such as:
-  * Dart: https://github.com/antlr/grammars-v4/blob/master/dart2/
-  * Swift: https://github.com/antlr/grammars-v4/blob/master/swift/swift3/Swift3.g4
-  * Countlness others: https://github.com/antlr/grammars-v4/tree/master
-
-
 ## Build & Run
 
-Gradle based.
+Gradlew based. Use gradlew.bat for Windows.
 
 ### Build
 
 ```
-gradle build
+./gradlew build
 ```
-
 
 ### Run
 
 ```
-gradle run
+./gradlew run
 ```
+
+### Test
+
+```
+./gradlew test test
+```
+
 
 ## Disclaimer
 
