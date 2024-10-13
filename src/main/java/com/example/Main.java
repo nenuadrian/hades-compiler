@@ -1,10 +1,10 @@
 package com.example;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -18,7 +18,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Options options = new Options();
         options.addOption("h", "help", false, "Show help");
-        options.addRequiredOption("f", "file", true, "File path");
+        options.addRequiredOption("i", "input", true, "Input .hades file or directory");
 
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
@@ -41,27 +41,40 @@ public class Main {
         }
     }
 
-    private static String readFileContents(String filePath) throws IOException {
+    private static String readFileContents(File file) throws IOException {
         // Read all lines from the file and convert them to a string
-        String content = new String(Files.readAllBytes(Paths.get(filePath)), StandardCharsets.UTF_8);
+        String content = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
         return content;
     }
 
     private static void execute(CommandLine cmd) throws Exception {
-        if (cmd.hasOption("f")) {
-            String filePath = cmd.getOptionValue("f");
+        File file = new File(cmd.getOptionValue("f"));
+        compile(file);
+    }
+
+    private static void compile(File file) throws Exception {
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            if (files != null) {  // Check if the directory is not empty or accessible
+                for (File childFile : files) {
+                    if (childFile.isFile()) {
+                        compile(file);
+                    }
+                }
+            }
+        } else {
 
             // Check if the file has a .hades extension
-            if (!filePath.endsWith(".hades")) {
+            if (!file.getName().endsWith(".hades")) {
                 System.out.println("Error: The file must have a .hades extension.");
                 System.exit(1);
             }
 
             // Remove the .hades extension and replace it with .class
-            String classFilePath = filePath.substring(0, filePath.length() - 6) + ".class";
+            String classFilePath = file.getAbsolutePath().substring(0, file.getAbsolutePath().length() - 6) + ".class";
 
             // Read the contents of the .hades file
-            String input = readFileContents(filePath);
+            String input = readFileContents(file);
 
             // Generate bytecode (assuming the HadesCompiler class exists)
             byte[] bytecode = new HadesCompiler().generateBytecode(input);
