@@ -4,6 +4,20 @@
 
 ![hades](assets/hades.png)
 
+## Table of Contents
+
+- [Hades Compiler](#hades-compiler)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Purpose](#purpose)
+  - [Compiler Design](#compiler-design)
+  - [Syntax](#syntax)
+  - [Build \& Run](#build--run)
+    - [Build](#build)
+    - [Run](#run)
+    - [Test](#test)
+  - [Disclaimer](#disclaimer)
+
 ## Overview
 
 Compiler for a custom language, Hades, to JVM byte-code using ANTLR for parsing as an opportunity to explore the inner-depth of compiler prototyping methodology.
